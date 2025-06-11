@@ -43,12 +43,13 @@ WHERE sale_amount > (
 WITH MonthlySales AS (
     SELECT 
       employee_name,
-      MONTH(sale_date) AS sale_month,
+      strftime('%m', sale_date) AS sale_month,
       SUM(sale_amount) AS total_sales
     FROM Sales
-    GROUP BY employee_name, MONTH(sale_date)
+    GROUP BY employee_name, strftime('%m', sale_date)
 )
 SELECT * FROM MonthlySales;
+
 
 -- Query 4: CTE + Window Function - Top seller per region
 WITH RankedSales AS (
